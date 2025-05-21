@@ -49,12 +49,13 @@ public class TodoService {
     }
 
     //delete To-do
-    public void deleteTodo(Long id){
+    public Todo deleteTodo(Long id){
         if(todoRepository.existsById(id)){
             todoRepository.deleteById(id);
         }   else {
             throw new RuntimeException("Todo not found with id"+ id);
         }
+        return null;
     }
 
     public List<Todo> getPendingTodos() {
