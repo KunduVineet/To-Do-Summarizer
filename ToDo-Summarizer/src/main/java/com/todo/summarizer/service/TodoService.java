@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,6 +24,16 @@ public class TodoService {
         return todoRepository.save(todo);
     }
 
+    // Read all to-dos
+    public List<Todo> getAllTodos() {
+        return todoRepository.findAll();
+    }
+
+    // Read a single to-do by ID
+    public Optional<Todo> getTodoById(Long id) {
+        return todoRepository.findById(id);
+    }
+
     //update To-do
     public Todo updateTodo(Long id, Todo updatetodo ){
         Optional<Todo> existingTodo = todoRepository.findById(id);
@@ -35,5 +46,18 @@ public class TodoService {
         } else{
             throw new RuntimeException("Todo not found with id"+ id);
         }
+    }
+
+    //delete To-do
+    public void deleteTodo(Long id){
+        if(todoRepository.existsById(id)){
+            todoRepository.deleteById(id);
+        }   else {
+            throw new RuntimeException("Todo not found with id"+ id);
+        }
+    }
+
+    public List<Todo> getPendingTodos() {
+        return todoRepository.findByStatus("pending");
     }
 }
