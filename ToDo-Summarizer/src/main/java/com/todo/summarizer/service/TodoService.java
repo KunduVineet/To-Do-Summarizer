@@ -25,16 +25,19 @@ public class TodoService {
     }
 
     // Read all to-dos
+    @Transactional
     public List<Todo> getAllTodos() {
         return todoRepository.findAll();
     }
 
     // Read a single to-do by ID
+    @Transactional
     public Optional<Todo> getTodoById(Long id) {
         return todoRepository.findById(id);
     }
 
     //update To-do
+    @Transactional
     public Todo updateTodo(Long id, Todo updatetodo ){
         Optional<Todo> existingTodo = todoRepository.findById(id);
         if(existingTodo.isPresent()){
@@ -49,6 +52,7 @@ public class TodoService {
     }
 
     //delete To-do
+    @Transactional
     public Todo deleteTodo(Long id){
         if(todoRepository.existsById(id)){
             todoRepository.deleteById(id);
@@ -58,6 +62,7 @@ public class TodoService {
         return null;
     }
 
+    @Transactional
     public List<Todo> getPendingTodos() {
         return todoRepository.findByStatus("pending");
     }
